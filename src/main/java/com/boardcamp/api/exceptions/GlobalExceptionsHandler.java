@@ -11,8 +11,10 @@ public class GlobalExceptionsHandler {
   public ResponseEntity<String> handleCustomException(CustomException exception) {
     if (exception.getType().equals("conflict")) {
       return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
-    } else {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());
     }
+    if (exception.getType().equals("notFound")) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+    }
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());
   }
 }
