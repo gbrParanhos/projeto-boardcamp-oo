@@ -50,13 +50,12 @@ public class RentalsModel {
   @Column(nullable = false)
   private Integer delayFee;
 
-  public RentalsModel(RentalsDTO dto) {
-    this.customer = dto.getCustomer();
-    this.game = dto.getGame();
-    this.rentDate = dto.getRentDate();
+  public RentalsModel(RentalsDTO dto, GamesModel game, CustomersModel customer) {
+    this.customer = customer;
+    this.game = game;
+    this.rentDate = LocalDate.now();
     this.daysRented = dto.getDaysRented();
-    this.returnDate = dto.getReturnDate();
-    this.originalPrice = dto.getOriginalPrice();
-    this.delayFee = dto.getDelayFee();
+    this.originalPrice = game.getPricePerDay();
+    this.delayFee = 0;
   }
 }
